@@ -1,0 +1,94 @@
+
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { User, ShoppingBag, LogOut } from 'lucide-react';
+
+const Profile = () => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  
+  // Redirect to sign in if not authenticated
+  React.useEffect(() => {
+    if (!user) {
+      navigate('/sign-in');
+    }
+  }, [user, navigate]);
+  
+  if (!user) {
+    return null; // Will redirect via useEffect
+  }
+  
+  return (
+    <div className="container mx-auto py-12 px-4">
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8">My Account</h1>
+        
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <User className="mr-2 h-5 w-5" />
+              Profile Information
+            </CardTitle>
+            <CardDescription>Your personal information</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <div className="flex flex-col sm:flex-row sm:justify-between border-b pb-2">
+                <span className="font-medium">Name:</span>
+                <span>{user.name}</span>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:justify-between border-b pb-2">
+                <span className="font-medium">Email:</span>
+                <span>{user.email}</span>
+              </div>
+              <div className="flex flex-col sm:flex-row sm:justify-between border-b pb-2">
+                <span className="font-medium">Member since:</span>
+                <span>Today</span>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button variant="outline" className="w-full">Edit Profile</Button>
+          </CardFooter>
+        </Card>
+        
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <ShoppingBag className="mr-2 h-5 w-5" />
+              My Orders
+            </CardTitle>
+            <CardDescription>Your order history</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-6 text-gray-500">
+              <p>You haven't placed any orders yet.</p>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button variant="outline" className="w-full" onClick={() => navigate('/products')}>
+              Start Shopping
+            </Button>
+          </CardFooter>
+        </Card>
+        
+        <Button 
+          variant="destructive" 
+          className="w-full" 
+          onClick={() => {
+            signOut();
+            navigate('/');
+          }}
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          Sign Out
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default Profile;

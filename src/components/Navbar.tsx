@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ShoppingBag, Menu, X, Search } from 'lucide-react';
+import { ShoppingBag, Menu, X, Search, User, LogOut } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 import { 
   Sheet,
   SheetContent,
@@ -15,11 +16,20 @@ import {
   SheetClose
 } from '@/components/ui/sheet';
 import { Badge } from '@/components/ui/badge';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import CartItem from './CartItem';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items, totalItems, totalPrice } = useCart();
+  const { user, signOut } = useAuth();
 
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm">
@@ -41,6 +51,39 @@ const Navbar: React.FC = () => {
             <Button variant="ghost" size="icon">
               <Search className="h-5 w-5" />
             </Button>
+            
+            {/* User Authentication */}
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuLabel className="font-normal text-sm text-gray-500">{user.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/orders">My Orders</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={signOut} className="text-red-500 cursor-pointer">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button variant="ghost" size="icon" asChild>
+                <Link to="/sign-in">
+                  <User className="h-5 w-5" />
+                </Link>
+              </Button>
+            )}
             
             {/* Shopping Cart */}
             <Sheet>
@@ -116,6 +159,25 @@ const Navbar: React.FC = () => {
               <Link to="/products/men" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>Men</Link>
               <Link to="/products/women" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>Women</Link>
               <Link to="/products" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>Shop All</Link>
+              
+              {/* Authentication links in mobile menu */}
+              {user ? (
+                <>
+                  <Link to="/profile" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>Profile</Link>
+                  <Link to="/orders" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>My Orders</Link>
+                  <button 
+                    className="text-lg text-left text-red-500" 
+                    onClick={() => {
+                      signOut();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Sign out
+                  </button>
+                </>
+              ) : (
+                <Link to="/sign-in" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
+              )}
             </nav>
           </div>
         )}
