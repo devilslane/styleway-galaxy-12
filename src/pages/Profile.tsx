@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { User, ShoppingBag, LogOut } from 'lucide-react';
+import { User, ShoppingBag, LogOut, Shield } from 'lucide-react';
+import { toast } from '@/components/ui/use-toast';
 
 const Profile = () => {
   const { user, signOut } = useAuth();
@@ -48,6 +49,14 @@ const Profile = () => {
                 <span className="font-medium">Member since:</span>
                 <span>Today</span>
               </div>
+              {user.isAdmin && (
+                <div className="flex flex-col sm:flex-row sm:justify-between border-b pb-2">
+                  <span className="font-medium">Role:</span>
+                  <span className="flex items-center text-blue-600">
+                    <Shield className="mr-1 h-4 w-4" /> Administrator
+                  </span>
+                </div>
+              )}
             </div>
           </CardContent>
           <CardFooter>
@@ -74,6 +83,29 @@ const Profile = () => {
             </Button>
           </CardFooter>
         </Card>
+        
+        {user.isAdmin && (
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Shield className="mr-2 h-5 w-5" />
+                Admin Access
+              </CardTitle>
+              <CardDescription>Manage your store</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                As an administrator, you have access to the store management dashboard.
+              </p>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" onClick={() => navigate('/admin')}>
+                <Shield className="mr-2 h-4 w-4" />
+                Go to Admin Portal
+              </Button>
+            </CardFooter>
+          </Card>
+        )}
         
         <Button 
           variant="destructive" 

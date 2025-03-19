@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { LogIn, AlertCircle } from 'lucide-react';
+import { LogIn, AlertCircle, Shield } from 'lucide-react';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -41,6 +41,12 @@ const SignIn = () => {
   const fillDemoCredentials = () => {
     setEmail('demo@example.com');
     setPassword('password');
+  };
+  
+  // For demo purposes, pre-fill with admin credentials
+  const fillAdminCredentials = () => {
+    setEmail('admin@example.com');
+    setPassword('admin');
   };
 
   return (
@@ -99,13 +105,22 @@ const SignIn = () => {
             </Button>
           </form>
           
-          <div className="mt-4 text-center">
+          <div className="mt-4 space-y-2">
             <Button 
               variant="outline" 
               className="w-full" 
               onClick={fillDemoCredentials}
             >
               Use demo account
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-center" 
+              onClick={fillAdminCredentials}
+            >
+              <Shield className="mr-2 h-4 w-4 text-blue-600" />
+              Use admin account
             </Button>
           </div>
         </CardContent>

@@ -6,6 +6,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  isAdmin?: boolean;
 }
 
 interface AuthContextType {
@@ -55,6 +56,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toast({
           title: "Welcome back!",
           description: "You've successfully signed in.",
+        });
+      } else if (email === 'admin@example.com' && password === 'admin') {
+        // Admin user
+        const userData: User = {
+          id: '2',
+          email: 'admin@example.com',
+          name: 'Admin User',
+          isAdmin: true
+        };
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+        toast({
+          title: "Welcome back, Admin!",
+          description: "You've successfully signed in with admin privileges.",
         });
       } else {
         throw new Error('Invalid credentials');
