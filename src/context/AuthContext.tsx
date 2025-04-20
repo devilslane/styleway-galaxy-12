@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
 
@@ -7,6 +6,7 @@ interface User {
   email: string;
   name: string;
   isAdmin?: boolean;
+  isSupplier?: boolean;
 }
 
 interface AuthContextType {
@@ -24,7 +24,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for saved user data in localStorage
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       try {
@@ -40,11 +39,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      // In a real application, this would be an API call
-      // Simulating authentication delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Simple validation for demo purposes
       if (email === 'demo@example.com' && password === 'password') {
         const userData: User = {
           id: '1',
@@ -58,7 +54,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           description: "You've successfully signed in.",
         });
       } else if (email === 'admin@example.com' && password === 'admin') {
-        // Admin user
         const userData: User = {
           id: '2',
           email: 'admin@example.com',
@@ -70,6 +65,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toast({
           title: "Welcome back, Admin!",
           description: "You've successfully signed in with admin privileges.",
+        });
+      } else if (email === 'supplier@example.com' && password === 'supplier') {
+        const userData: User = {
+          id: '3',
+          email: 'supplier@example.com',
+          name: 'Supplier User',
+          isSupplier: true
+        };
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+        toast({
+          title: "Welcome back, Supplier!",
+          description: "You've successfully signed in to the supplier portal.",
         });
       } else {
         throw new Error('Invalid credentials');
@@ -89,8 +97,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signUp = async (name: string, email: string, password: string) => {
     setIsLoading(true);
     try {
-      // In a real application, this would be an API call
-      // Simulating registration delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       const userData: User = {

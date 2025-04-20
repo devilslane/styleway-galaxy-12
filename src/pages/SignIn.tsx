@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
@@ -7,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { LogIn, AlertCircle, Shield } from 'lucide-react';
+import { LogIn, AlertCircle, Shield, Package } from 'lucide-react';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -37,16 +36,19 @@ const SignIn = () => {
     }
   };
 
-  // For demo purposes, pre-fill with demo credentials
   const fillDemoCredentials = () => {
     setEmail('demo@example.com');
     setPassword('password');
   };
   
-  // For demo purposes, pre-fill with admin credentials
   const fillAdminCredentials = () => {
     setEmail('admin@example.com');
     setPassword('admin');
+  };
+
+  const fillSupplierCredentials = () => {
+    setEmail('supplier@example.com');
+    setPassword('supplier');
   };
 
   return (
@@ -121,6 +123,15 @@ const SignIn = () => {
             >
               <Shield className="mr-2 h-4 w-4 text-blue-600" />
               Use admin account
+            </Button>
+
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-center" 
+              onClick={fillSupplierCredentials}
+            >
+              <Package className="mr-2 h-4 w-4 text-green-600" />
+              Use supplier account
             </Button>
           </div>
         </CardContent>

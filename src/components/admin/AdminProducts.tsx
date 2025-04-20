@@ -61,7 +61,7 @@ const AdminProducts = () => {
                   <TableCell>{product.id}</TableCell>
                   <TableCell>
                     <img 
-                      src={product.image} 
+                      src={product.images[0]} 
                       alt={product.name} 
                       className="h-12 w-12 object-cover rounded-md" 
                     />
