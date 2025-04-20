@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { User, ShoppingBag, LogOut, Shield } from 'lucide-react';
+import { User, ShoppingBag, LogOut, Shield, Package } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 
 const Profile = () => {
@@ -102,6 +102,29 @@ const Profile = () => {
               <Button className="w-full" onClick={() => navigate('/admin')}>
                 <Shield className="mr-2 h-4 w-4" />
                 Go to Admin Portal
+              </Button>
+            </CardFooter>
+          </Card>
+        )}
+
+        {user.isSupplier && (
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Package className="mr-2 h-5 w-5" />
+                Supplier Access
+              </CardTitle>
+              <CardDescription>Manage your products and orders</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                As a supplier, you have access to the supplier management portal.
+              </p>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" onClick={() => navigate('/supplier')}>
+                <Package className="mr-2 h-4 w-4" />
+                Go to Supplier Portal
               </Button>
             </CardFooter>
           </Card>
