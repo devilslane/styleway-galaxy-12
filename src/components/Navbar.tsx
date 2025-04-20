@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useNavigate } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, Menu, X, Search, User, LogOut } from 'lucide-react';
@@ -30,15 +29,19 @@ const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items, totalItems, totalPrice } = useCart();
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    setIsMenuOpen(false);
+    navigate('/payment-options');
+  };
 
   return (
     <header className="bg-white sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <Link to="/" className="text-2xl font-bold text-brand-navy">STYLISH</Link>
           
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
             <Link to="/" className="nav-link font-medium">Home</Link>
             <Link to="/products/men" className="nav-link font-medium">Men</Link>
@@ -46,13 +49,11 @@ const Navbar: React.FC = () => {
             <Link to="/products" className="nav-link font-medium">Shop All</Link>
           </nav>
           
-          {/* Right Side Icons */}
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="icon">
               <Search className="h-5 w-5" />
             </Button>
             
-            {/* User Authentication */}
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -85,7 +86,6 @@ const Navbar: React.FC = () => {
               </Button>
             )}
             
-            {/* Shopping Cart */}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="relative">
@@ -119,8 +119,11 @@ const Navbar: React.FC = () => {
                         <span>${totalPrice.toFixed(2)}</span>
                       </div>
                       <SheetClose asChild>
-                        <Button className="w-full btn-primary">
-                          Checkout
+                        <Button 
+                          className="w-full btn-primary"
+                          onClick={handleCheckout}
+                        >
+                          Proceed to Payment
                         </Button>
                       </SheetClose>
                     </div>
@@ -129,7 +132,6 @@ const Navbar: React.FC = () => {
               </SheetContent>
             </Sheet>
             
-            {/* Mobile Menu Button */}
             <Button 
               variant="ghost" 
               size="icon" 
@@ -141,7 +143,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         
-        {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <div className="md:hidden fixed inset-0 bg-white z-50 flex flex-col">
             <div className="flex justify-between items-center p-4 border-b">
@@ -160,7 +161,6 @@ const Navbar: React.FC = () => {
               <Link to="/products/women" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>Women</Link>
               <Link to="/products" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>Shop All</Link>
               
-              {/* Authentication links in mobile menu */}
               {user ? (
                 <>
                   <Link to="/profile" className="text-lg nav-link" onClick={() => setIsMenuOpen(false)}>Profile</Link>
