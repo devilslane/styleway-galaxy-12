@@ -16,6 +16,15 @@ const SignIn = () => {
   const { signIn } = useAuth();
   const navigate = useNavigate();
 
+  const handleSignIn = async (email: string, password: string) => {
+    try {
+      await signIn(email, password);
+      navigate('/payment-options');
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'An error occurred during sign in');
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -27,8 +36,7 @@ const SignIn = () => {
     
     setIsSubmitting(true);
     try {
-      await signIn(email, password);
-      navigate('/');
+      await handleSignIn(email, password);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred during sign in');
     } finally {

@@ -16,6 +16,7 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import SupplierPortal from "./pages/Supplier";
+import PaymentOptions from "./pages/PaymentOptions";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/supplier" element={<SupplierPortal />} />
+                <Route path="/payment-options" element={<PaymentOptions />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
