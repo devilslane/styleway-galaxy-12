@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
-import { CreditCard, wallet, WalletCards } from 'lucide-react';
+import { CreditCard, Wallet, WalletCards } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 const PaymentOptions = () => {
