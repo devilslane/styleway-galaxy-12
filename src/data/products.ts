@@ -1,4 +1,3 @@
-
 import { Product, Category } from '../types';
 
 export const products: Product[] = [
@@ -10,8 +9,8 @@ export const products: Product[] = [
     category: 'tshirts',
     gender: 'unisex',
     images: [
-      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1000',
-      'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1000',
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800',
+      'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800',
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: ['White', 'Black', 'Gray'],
@@ -26,13 +25,13 @@ export const products: Product[] = [
     category: 'jeans',
     gender: 'men',
     images: [
-      'https://images.unsplash.com/photo-1582552938357-32b906df40cb?q=80&w=1000',
-      'https://images.unsplash.com/photo-1600717535275-0b18ede2f7fc?q=80&w=1000',
+      'https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=800',
+      'https://images.unsplash.com/photo-1600717535275-0b18ede2f7fc?w=800',
     ],
     sizes: ['30', '32', '34', '36', '38'],
     colors: ['Blue', 'Black', 'Gray'],
     inStock: true,
-    featured: false,
+    featured: true,
   },
   {
     id: '3',
@@ -42,8 +41,8 @@ export const products: Product[] = [
     category: 'jackets',
     gender: 'men',
     images: [
-      'https://images.unsplash.com/photo-1619603364904-c0498317e145?q=80&w=1000',
-      'https://images.unsplash.com/photo-1592878904946-b3cd8ae234d0?q=80&w=1000',
+      'https://images.unsplash.com/photo-1619603364904-c0498317e145?w=800',
+      'https://images.unsplash.com/photo-1592878904946-b3cd8ae234d0?w=800',
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     colors: ['Navy', 'Gray', 'Black'],
