@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import products from '@/data/products';
+import { products } from '@/data/products';
 
 const AdminProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
