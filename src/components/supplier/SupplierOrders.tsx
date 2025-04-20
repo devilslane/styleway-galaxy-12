@@ -23,15 +23,30 @@ const orders = [
 const SupplierOrders = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'Processing':
+        return 'bg-blue-100 text-blue-800';
+      case 'Shipped':
+        return 'bg-purple-100 text-purple-800';
+      case 'Delivered':
+        return 'bg-green-100 text-green-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <div className="relative w-full sm:w-72">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search orders..."
-            className="pl-8"
+            className="pl-9"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -59,14 +74,9 @@ const SupplierOrders = () => {
                   <TableCell>{order.date}</TableCell>
                   <TableCell>{order.customer}</TableCell>
                   <TableCell>{order.items}</TableCell>
-                  <TableCell>${order.total}</TableCell>
+                  <TableCell>${order.total.toFixed(2)}</TableCell>
                   <TableCell>
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                      order.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
-                      order.status === 'Processing' ? 'bg-blue-100 text-blue-800' :
-                      order.status === 'Shipped' ? 'bg-purple-100 text-purple-800' :
-                      'bg-green-100 text-green-800'
-                    }`}>
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusColor(order.status)}`}>
                       {order.status}
                     </span>
                   </TableCell>

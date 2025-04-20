@@ -26,29 +26,28 @@ const SupplierInventory = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <div className="relative w-full sm:w-72">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search inventory..."
-            className="pl-8"
+            className="pl-9"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <Button>
+        <Button className="w-full sm:w-auto">
           <Plus className="mr-2 h-4 w-4" />
           Add Product
         </Button>
       </div>
       
-      <Card>
+      <Card className="overflow-hidden">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-12">SKU</TableHead>
-                <TableHead>Image</TableHead>
-                <TableHead>Name</TableHead>
+                <TableHead className="w-14">SKU</TableHead>
+                <TableHead>Product</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead>Stock</TableHead>
                 <TableHead>Status</TableHead>
@@ -60,13 +59,18 @@ const SupplierInventory = () => {
                 <TableRow key={product.id}>
                   <TableCell>SKU-{product.id}</TableCell>
                   <TableCell>
-                    <img 
-                      src={product.images[0]} 
-                      alt={product.name} 
-                      className="h-12 w-12 object-cover rounded-md" 
-                    />
+                    <div className="flex items-center gap-3">
+                      <img 
+                        src={product.images[0]} 
+                        alt={product.name} 
+                        className="h-10 w-10 rounded-lg object-cover" 
+                      />
+                      <div>
+                        <div className="font-medium">{product.name}</div>
+                        <div className="text-sm text-muted-foreground">${product.price}</div>
+                      </div>
+                    </div>
                   </TableCell>
-                  <TableCell className="font-medium">{product.name}</TableCell>
                   <TableCell>{product.category}</TableCell>
                   <TableCell>{Math.floor(Math.random() * 100)}</TableCell>
                   <TableCell>
@@ -78,10 +82,10 @@ const SupplierInventory = () => {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="icon">
+                      <Button variant="outline" size="icon">
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="icon">
+                      <Button variant="outline" size="icon" className="text-destructive hover:text-destructive">
                         <Trash className="h-4 w-4" />
                       </Button>
                     </div>
