@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import HeroSection from '@/components/HeroSection';
 import CategorySection from '@/components/CategorySection';
-import FeaturedProducts from '@/components/FeaturedProducts';
 import NewsletterSignup from '@/components/NewsletterSignup';
-import { categories, products } from '@/data/products';
+import { categories } from '@/data/products';
 import { 
   Dialog,
   DialogContent,
@@ -34,7 +33,6 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <FeaturedProducts products={products} />
       <CategorySection categories={categories} />
       
       {/* Promotional Banner */}
